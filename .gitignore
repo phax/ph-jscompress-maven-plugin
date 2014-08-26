@@ -12,3 +12,6 @@
 hs_err_pid*
 
 target/
+
+# Unit test generated files
+src/test/resources/js/*.min.js

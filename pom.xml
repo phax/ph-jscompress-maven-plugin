@@ -112,7 +112,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
         <configuration>
-          <goalPrefix>closure</goalPrefix>
+          <goalPrefix>ph-jscompress</goalPrefix>
         </configuration>
         <executions>
           <execution>

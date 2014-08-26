@@ -27,7 +27,7 @@
   </parent>
   <groupId>com.helger.maven</groupId>
   <artifactId>ph-jscompress-maven-plugin</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.0</version>
   <packaging>maven-plugin</packaging>
   <name>ph-jscompress-maven-plugin</name>
   <description>Maven plugin for compressing JS files at build time</description>
@@ -45,7 +45,7 @@
     <connection>scm:git:git@github.com:phax/ph-jscompress-maven-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-jscompress-maven-plugin.git</developerConnection>
     <url>http://github.com/phax/ph-jscompress-maven-plugin</url>
-    <tag>HEAD</tag>
+    <tag>ph-jscompress-maven-plugin-1.1.0</tag>
   </scm>
 
   <organization>

@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -29,8 +28,8 @@ import org.apache.maven.project.MavenProject;
 import com.google.javascript.jscomp.ClosureRunner;
 
 /**
- * @author Philip Helger, phloc systems
- * @goal compressjs
+ * @author Philip Helger
+ * @goal jscompress
  * @phase generate-resources
  * @description Compress existing JS file using the Google Closure compressor.
  */
@@ -44,7 +43,7 @@ public final class JSCompressMojo extends AbstractMojo
 
   /**
    * The Maven Project.
-   * 
+   *
    * @parameter property="project"
    * @required
    * @readonly
@@ -53,7 +52,7 @@ public final class JSCompressMojo extends AbstractMojo
 
   /**
    * The directory where the JS files reside. It must be an existing directory.
-   * 
+   *
    * @required
    * @parameter property="sourceDirectory"
    *            default-value="${basedir}/src/main/resources"
@@ -62,28 +61,28 @@ public final class JSCompressMojo extends AbstractMojo
 
   /**
    * Should the system properties be emitted as well?
-   * 
+   *
    * @parameter property="recursive" default-value="true"
    */
   private boolean recursive = true;
 
   /**
    * The encoding of the source JS files.
-   * 
+   *
    * @parameter property="sourceEncoding" default-value="UTF-8"
    */
   private String sourceEncoding = "UTF-8";
 
   /**
    * The extension that should be supplied to the minified/compressed JS file.
-   * 
+   *
    * @parameter property="targetFileExtension" default-value=".min.js"
    */
   private String targetFileExtension = ".min.js";
 
   /**
    * Should the system properties be emitted as well?
-   * 
+   *
    * @parameter property="forceCreation" default-value="false"
    */
   private boolean forceCreation = false;
@@ -125,7 +124,7 @@ public final class JSCompressMojo extends AbstractMojo
   /**
    * Check if the passed file is already compressed. The check is only done
    * using the file extension of the file name.
-   * 
+   *
    * @param sFilename
    *        The filename to be checked.
    * @return <code>true</code> if the file is already compressed.

@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -32,8 +31,8 @@ import com.google.common.collect.Lists;
 /**
  * The main class running the Closure compiler. It must reside in this package,
  * as {@link AbstractCommandLineRunner} has only package visibility.
- * 
- * @author Philip Helger, phloc systems
+ *
+ * @author Philip Helger
  */
 public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, CompilerOptions>
 {

@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -24,12 +23,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
-import com.helger.maven.jscompress.JSCompressMojo;
-
 /**
  * Test class for class {@link JSCompressMojo}.
- * 
- * @author Philip Helger, phloc systems
+ *
+ * @author Philip Helger
  */
 public final class JSCompressMojoTest
 {

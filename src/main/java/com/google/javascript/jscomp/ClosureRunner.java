@@ -30,7 +30,7 @@ import com.google.common.collect.Lists;
 
 /**
  * The main class running the Closure compiler. It must reside in this package,
- * as {@link AbstractCommandLineRunner} has only package visibility.
+ * as AbstractCommandLineRunner has only package visibility.
  *
  * @author Philip Helger
  */

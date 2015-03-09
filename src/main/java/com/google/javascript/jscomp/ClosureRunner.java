@@ -54,6 +54,12 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   }
 
   @Override
+  protected void addWhitelistWarningsGuard (@Nonnull final CompilerOptions aOptions, @Nonnull final File aWhitelistFile)
+  {
+    aOptions.addWarningsGuard (WhitelistWarningsGuard.fromFile (aWhitelistFile));
+  }
+
+  @Override
   protected Compiler createCompiler ()
   {
     return new Compiler (System.err);

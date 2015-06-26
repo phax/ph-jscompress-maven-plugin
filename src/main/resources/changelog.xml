@@ -17,8 +17,12 @@
     limitations under the License.
 
 -->
-<changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-jscompress-maven-plugin">
+<changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-jscompress-maven-plugin">
+  <entry date="2015-06-26" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Google Closure v20150609</text>
+    </change>
+  </entry>
   <release date="2015-06-01" version="2.0.1" />
   <entry date="2015-06-01" category="tech" action="update">
     <change>

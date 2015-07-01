@@ -8,7 +8,7 @@ Since v2.0.0 this plugin requires a JDK 1.7 runtime to be used.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-jscompress-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.2</version>
         <executions>
           <execution>
             <goals>

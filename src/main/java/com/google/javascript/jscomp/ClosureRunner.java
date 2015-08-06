@@ -95,7 +95,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     return options;
   }
 
-  private void _setDefaultConfig ()
+  private void _setDefaultConfig (@Nonnull final EJSLanguage eJSLanguage)
   {
     getCommandLineConfig ().setPrintTree (false)
                            .setPrintAst (false)
@@ -112,7 +112,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setCreateNameMapFiles (false)
                            .setPropertyMapOutputFile ("")
                            .setCodingConvention (true ? CodingConventions.getDefault ()
-                                                     : new ClosureCodingConvention ())
+                                                      : new ClosureCodingConvention ())
                            .setSummaryDetailLevel (1)
                            .setOutputWrapper ("")
                            .setModuleWrapper (Lists.<String> newArrayList ())
@@ -123,8 +123,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setManageClosureDependencies (false)
                            .setClosureEntryPoints (Lists.<String> newArrayList ())
                            .setOutputManifest (Lists.<String> newArrayList ())
-                           .setAcceptConstKeyword (false)
-                           .setLanguageIn ("ECMASCRIPT5");
+                           .setLanguageIn (eJSLanguage.getID ());
   }
 
   public boolean compressJSFile (@Nonnull final File aSourceFile,
@@ -143,7 +142,10 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       for (final File f : aExterns)
         aExternList.add (f.getAbsolutePath ());
 
-      _setDefaultConfig ();
+      // TODO make language configurable
+      final EJSLanguage eJSLanguage = EJSLanguage.DEFAULT;
+
+      _setDefaultConfig (eJSLanguage);
       getCommandLineConfig ().setExterns (aExternList)
                              .setJs (Lists.newArrayList (aSourceFile.getAbsolutePath ()))
                              .setJsOutputFile (aDestFile.getAbsolutePath ());

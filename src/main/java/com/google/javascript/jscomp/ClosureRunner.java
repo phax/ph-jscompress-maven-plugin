@@ -66,11 +66,11 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   }
 
   @Override
-  protected List <SourceFile> createExterns () throws FlagUsageException, IOException
+  protected List <SourceFile> createExterns (final CompilerOptions options) throws FlagUsageException, IOException
   {
-    final List <SourceFile> externs = super.createExterns ();
+    final List <SourceFile> externs = super.createExterns (options);
     // Use the default externs provided by the Closure CommandLineRunner
-    final List <SourceFile> defaultExterns = CommandLineRunner.getDefaultExterns ();
+    final List <SourceFile> defaultExterns = CommandLineRunner.getBuiltinExterns (options);
     defaultExterns.addAll (externs);
     return defaultExterns;
   }
@@ -80,6 +80,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   {
     final CompilerOptions options = new CompilerOptions ();
     options.setCodingConvention (new ClosureCodingConvention ());
+
     final CompilationLevel level = m_eLevel;
     level.setOptionsForCompilationLevel (options);
     if (DEBUG)

@@ -70,7 +70,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   {
     final List <SourceFile> externs = super.createExterns (options);
     // Use the default externs provided by the Closure CommandLineRunner
-    final List <SourceFile> defaultExterns = CommandLineRunner.getBuiltinExterns (options);
+    final List <SourceFile> defaultExterns = AbstractCommandLineRunner.getBuiltinExterns (options);
     defaultExterns.addAll (externs);
     return defaultExterns;
   }
@@ -112,8 +112,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setVariableMapOutputFile ("")
                            .setCreateNameMapFiles (false)
                            .setPropertyMapOutputFile ("")
-                           .setCodingConvention (true ? CodingConventions.getDefault ()
-                                                      : new ClosureCodingConvention ())
+                           .setCodingConvention (true ? CodingConventions.getDefault () : new ClosureCodingConvention ())
                            .setSummaryDetailLevel (1)
                            .setOutputWrapper ("")
                            .setModuleWrapper (Lists.<String> newArrayList ())
@@ -127,9 +126,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setLanguageIn (eJSLanguage.getID ());
   }
 
-  public boolean compressJSFile (@Nonnull final File aSourceFile,
-                                 @Nonnull final File aDestFile,
-                                 @Nonnull final File [] aExterns)
+  public boolean compressJSFile (@Nonnull final File aSourceFile, @Nonnull final File aDestFile, @Nonnull final File [] aExterns)
   {
     if (aSourceFile == null)
       throw new NullPointerException ("sourceFile");

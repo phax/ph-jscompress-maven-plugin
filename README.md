@@ -9,7 +9,7 @@ Since v2.1.0 this plugin requires at least 3.x. v2.0.2 is the last version suppo
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-jscompress-maven-plugin</artifactId>
-        <version>2.1.0</version>
+        <version>2.1.1</version>
         <executions>
           <execution>
             <goals>

@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-jscompress-maven-plugin">
+  <entry date="2016-01-11" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Google Closure v20151216</text>
+    </change>
+  </entry>
   <release date="2015-12-01" version="2.1.1" />
   <entry date="2015-12-01" category="tech" action="update">
     <change>

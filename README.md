@@ -26,4 +26,5 @@ Since v2.1.0 this plugin requires at least 3.x. v2.0.2 is the last version suppo
 
 ---
 
-On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
+My personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) |
+On Twitter: <a href="https://twitter.com/philiphelger">@philiphelger</a>

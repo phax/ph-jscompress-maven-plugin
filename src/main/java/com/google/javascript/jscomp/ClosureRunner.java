@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import org.apache.maven.plugin.logging.Log;
 
 import com.google.common.collect.Lists;
+import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
 
 /**
  * The main class running the Closure compiler. It must reside in this package,
@@ -41,7 +42,6 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
 
   private static final boolean DEBUG = false;
   private static final boolean GENERATE_EXPORTS = false;
-  private final CompilationLevel m_eLevel = CompilationLevel.SIMPLE_OPTIMIZATIONS;
 
   public ClosureRunner (@Nonnull final Log aLog, @Nonnull final String sCharset)
   {
@@ -70,7 +70,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   {
     final List <SourceFile> externs = super.createExterns (options);
     // Use the default externs provided by the Closure CommandLineRunner
-    final List <SourceFile> defaultExterns = AbstractCommandLineRunner.getBuiltinExterns (options);
+    final List <SourceFile> defaultExterns = AbstractCommandLineRunner.getBuiltinExterns (options.getEnvironment ());
     defaultExterns.addAll (externs);
     return defaultExterns;
   }
@@ -78,10 +78,16 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   @Override
   protected CompilerOptions createOptions ()
   {
+    // TODO make language configurable
+    final LanguageMode eJSLanguage = LanguageMode.ECMASCRIPT5;
+
     final CompilerOptions options = new CompilerOptions ();
     options.setCodingConvention (new ClosureCodingConvention ());
+    options.setLanguageIn (eJSLanguage);
+    options.setLanguageOut (eJSLanguage);
 
-    final CompilationLevel level = m_eLevel;
+    // OPtimizations:
+    final CompilationLevel level = CompilationLevel.SIMPLE_OPTIMIZATIONS;
     level.setOptionsForCompilationLevel (options);
     if (DEBUG)
       level.setDebugOptionsForCompilationLevel (options);
@@ -90,13 +96,13 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       options.setGenerateExports (GENERATE_EXPORTS);
 
     WarningLevel.QUIET.setOptionsForWarningLevel (options);
-    options.prettyPrint = false;
-    options.printInputDelimiter = false;
-    options.closurePass = false;
+    options.setPrettyPrint (false);
+    options.setPrintInputDelimiter (false);
+    options.setClosurePass (false);
     return options;
   }
 
-  private void _setDefaultConfig (@Nonnull final EJSLanguage eJSLanguage)
+  private void _setDefaultConfig ()
   {
     getCommandLineConfig ().setPrintTree (false)
                            .setPrintAst (false)
@@ -112,7 +118,8 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setVariableMapOutputFile ("")
                            .setCreateNameMapFiles (false)
                            .setPropertyMapOutputFile ("")
-                           .setCodingConvention (true ? CodingConventions.getDefault () : new ClosureCodingConvention ())
+                           .setCodingConvention (true ? CodingConventions.getDefault ()
+                                                      : new ClosureCodingConvention ())
                            .setSummaryDetailLevel (1)
                            .setOutputWrapper ("")
                            .setModuleWrapper (Lists.<String> newArrayList ())
@@ -120,13 +127,12 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setCreateSourceMap ("")
                            .setDefine (Lists.<String> newArrayList ())
                            .setCharset (m_sCharset)
-                           .setManageClosureDependencies (false)
-                           .setClosureEntryPoints (Lists.<String> newArrayList ())
-                           .setOutputManifest (Lists.<String> newArrayList ())
-                           .setLanguageIn (eJSLanguage.getID ());
+                           .setOutputManifest (Lists.<String> newArrayList ());
   }
 
-  public boolean compressJSFile (@Nonnull final File aSourceFile, @Nonnull final File aDestFile, @Nonnull final File [] aExterns)
+  public boolean compressJSFile (@Nonnull final File aSourceFile,
+                                 @Nonnull final File aDestFile,
+                                 @Nonnull final File [] aExterns)
   {
     if (aSourceFile == null)
       throw new NullPointerException ("sourceFile");
@@ -136,14 +142,11 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       // Build result file name
       m_aLog.info ("Compressing JS " + aSourceFile.getName () + " to " + aDestFile.getName ());
 
-      final List <String> aExternList = new ArrayList <String> ();
+      final List <String> aExternList = new ArrayList <> ();
       for (final File f : aExterns)
         aExternList.add (f.getAbsolutePath ());
 
-      // TODO make language configurable
-      final EJSLanguage eJSLanguage = EJSLanguage.DEFAULT;
-
-      _setDefaultConfig (eJSLanguage);
+      _setDefaultConfig ();
       getCommandLineConfig ().setExterns (aExternList)
                              .setJs (Lists.newArrayList (aSourceFile.getAbsolutePath ()))
                              .setJsOutputFile (aDestFile.getAbsolutePath ());

@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import org.apache.maven.plugin.logging.Log;
 
 import com.google.common.collect.Lists;
+import com.google.javascript.jscomp.CompilerOptions.JsonStreamMode;
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
 
 /**
@@ -85,8 +86,9 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     options.setCodingConvention (new ClosureCodingConvention ());
     options.setLanguageIn (eJSLanguage);
     options.setLanguageOut (eJSLanguage);
+    options.setManageClosureDependencies (false);
 
-    // OPtimizations:
+    // Optimizations:
     final CompilationLevel level = CompilationLevel.SIMPLE_OPTIMIZATIONS;
     level.setOptionsForCompilationLevel (options);
     if (DEBUG)
@@ -110,8 +112,8 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setJscompDevMode (CompilerOptions.DevMode.OFF)
                            .setLoggingLevel (Level.WARNING.getName ())
                            .setExterns (Lists.<String> newArrayList ())
-                           .setJs (Lists.<String> newArrayList ())
                            .setJsOutputFile ("")
+                           .setJsonStreamMode (JsonStreamMode.NONE)
                            .setModule (Lists.<String> newArrayList ())
                            .setVariableMapInputFile ("")
                            .setPropertyMapInputFile ("")
@@ -127,7 +129,8 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setCreateSourceMap ("")
                            .setDefine (Lists.<String> newArrayList ())
                            .setCharset (m_sCharset)
-                           .setOutputManifest (Lists.<String> newArrayList ());
+                           .setOutputManifest (Lists.<String> newArrayList ())
+                           .setEntryPoints (Lists.<ModuleIdentifier> newArrayList ());
   }
 
   public boolean compressJSFile (@Nonnull final File aSourceFile,
@@ -147,8 +150,12 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
         aExternList.add (f.getAbsolutePath ());
 
       _setDefaultConfig ();
+
+      // Since v20160315 setJs has no effect
+      final List <FlagEntry <JsSourceType>> aSources = new ArrayList <> ();
+      aSources.add (new FlagEntry <JsSourceType> (JsSourceType.JS, aSourceFile.getAbsolutePath ()));
       getCommandLineConfig ().setExterns (aExternList)
-                             .setJs (Lists.newArrayList (aSourceFile.getAbsolutePath ()))
+                             .setMixedJsSources (aSources)
                              .setJsOutputFile (aDestFile.getAbsolutePath ());
 
       final int nErrors = doRun ();

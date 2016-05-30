@@ -145,15 +145,15 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       // Build result file name
       m_aLog.info ("Compressing JS " + aSourceFile.getName () + " to " + aDestFile.getName ());
 
-      final List <String> aExternList = new ArrayList <> ();
+      final List <String> aExternList = new ArrayList<> ();
       for (final File f : aExterns)
         aExternList.add (f.getAbsolutePath ());
 
       _setDefaultConfig ();
 
       // Since v20160315 setJs has no effect
-      final List <FlagEntry <JsSourceType>> aSources = new ArrayList <> ();
-      aSources.add (new FlagEntry <JsSourceType> (JsSourceType.JS, aSourceFile.getAbsolutePath ()));
+      final List <FlagEntry <JsSourceType>> aSources = new ArrayList<> ();
+      aSources.add (new FlagEntry<> (JsSourceType.JS, aSourceFile.getAbsolutePath ()));
       getCommandLineConfig ().setExterns (aExternList)
                              .setMixedJsSources (aSources)
                              .setJsOutputFile (aDestFile.getAbsolutePath ());

@@ -82,7 +82,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>v20160619</version>
+      <version>v20160713</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>

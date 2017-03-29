@@ -1,4 +1,4 @@
-#ph-jscompress-maven-plugin
+# ph-jscompress-maven-plugin
 
 A Maven plugin to compress JS files at build time using Google Closure.
 Since v2.0.0 this plugin requires a JDK 1.7 runtime to be used.

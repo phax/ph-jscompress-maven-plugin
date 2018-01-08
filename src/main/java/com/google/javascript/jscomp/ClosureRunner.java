@@ -29,6 +29,7 @@ import org.apache.maven.plugin.logging.Log;
 import com.google.common.collect.Lists;
 import com.google.javascript.jscomp.CompilerOptions.JsonStreamMode;
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
+import com.google.javascript.jscomp.deps.ClosureBundler;
 
 /**
  * The main class running the Closure compiler. It must reside in this package,
@@ -145,15 +146,15 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       // Build result file name
       m_aLog.info ("Compressing JS " + aSourceFile.getName () + " to " + aDestFile.getName ());
 
-      final List <String> aExternList = new ArrayList<> ();
+      final List <String> aExternList = new ArrayList <> ();
       for (final File f : aExterns)
         aExternList.add (f.getAbsolutePath ());
 
       _setDefaultConfig ();
 
       // Since v20160315 setJs has no effect
-      final List <FlagEntry <JsSourceType>> aSources = new ArrayList<> ();
-      aSources.add (new FlagEntry<> (JsSourceType.JS, aSourceFile.getAbsolutePath ()));
+      final List <FlagEntry <JsSourceType>> aSources = new ArrayList <> ();
+      aSources.add (new FlagEntry <> (JsSourceType.JS, aSourceFile.getAbsolutePath ()));
       getCommandLineConfig ().setExterns (aExternList)
                              .setMixedJsSources (aSources)
                              .setJsOutputFile (aDestFile.getAbsolutePath ());
@@ -168,5 +169,13 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       m_aLog.error ("Failed to compress JS " + aSourceFile.toString (), ex);
     }
     return false;
+  }
+
+  @Override
+  protected void prepForBundleAndAppendTo (final Appendable aOut,
+                                           final CompilerInput aInput,
+                                           final String aContent) throws IOException
+  {
+    ClosureBundler.appendInput (aOut, aInput, aContent);
   }
 }

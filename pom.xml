@@ -61,6 +61,10 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
+  <prerequisites>
+    <maven>3.2</maven>
+  </prerequisites>
  
   <properties>
     <maven.version>3.3.3</maven.version>

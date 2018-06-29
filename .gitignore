@@ -17,3 +17,6 @@ target/
 src/test/resources/js/*.min.js
 /**/.pmd
 **/*.iml
+/.settings/ 
+/.project 
+/.classpath 

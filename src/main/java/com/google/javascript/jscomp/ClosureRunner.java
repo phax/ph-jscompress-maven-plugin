@@ -26,10 +26,16 @@ import javax.annotation.Nonnull;
 
 import org.apache.maven.plugin.logging.Log;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.javascript.jscomp.CompilerOptions.JsonStreamMode;
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
 import com.google.javascript.jscomp.deps.ClosureBundler;
+import com.google.javascript.jscomp.deps.ModuleLoader;
+import com.google.javascript.jscomp.parsing.parser.FeatureSet.Feature;
+import com.google.javascript.jscomp.transpile.BaseTranspiler;
+import com.google.javascript.jscomp.transpile.BaseTranspiler.CompilerSupplier;
+import com.google.javascript.jscomp.transpile.Transpiler;
 
 /**
  * The main class running the Closure compiler. It must reside in this package,
@@ -171,11 +177,38 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     return false;
   }
 
+  private ClosureBundler m_aBundler;
+
+  private ClosureBundler _getBundler ()
+  {
+    if (m_aBundler == null)
+    {
+      final ImmutableList <String> moduleRoots = ImmutableList.of (ModuleLoader.DEFAULT_FILENAME_PREFIX);
+      final CompilerOptions options = createOptions ();
+      m_aBundler = new ClosureBundler (Transpiler.NULL,
+                                       new BaseTranspiler (new CompilerSupplier (LanguageMode.ECMASCRIPT_NEXT.toFeatureSet ()
+                                                                                                             .without (Feature.MODULES),
+                                                                                 options.getModuleResolutionMode (),
+                                                                                 moduleRoots,
+                                                                                 options.getBrowserResolverPrefixReplacements ()),
+                                                           /*
+                                                            * runtimeLibraryName=
+                                                            */ ""));
+    }
+    return m_aBundler;
+  }
+
   @Override
   protected void prepForBundleAndAppendTo (final Appendable aOut,
                                            final CompilerInput aInput,
                                            final String aContent) throws IOException
   {
-    ClosureBundler.appendInput (aOut, aInput, aContent);
+    _getBundler ().withPath (aInput.getName ()).appendTo (aOut, aInput, aContent);
+  }
+
+  @Override
+  protected void appendRuntimeTo (final Appendable out) throws IOException
+  {
+    _getBundler ().appendRuntimeTo (out);
   }
 }

@@ -93,7 +93,6 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     options.setCodingConvention (new ClosureCodingConvention ());
     options.setLanguageIn (eJSLanguage);
     options.setLanguageOut (eJSLanguage);
-    options.setManageClosureDependencies (false);
 
     // Optimizations:
     final CompilationLevel level = CompilationLevel.SIMPLE_OPTIMIZATIONS;
@@ -136,8 +135,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setCreateSourceMap ("")
                            .setDefine (Lists.<String> newArrayList ())
                            .setCharset (m_sCharset)
-                           .setOutputManifest (Lists.<String> newArrayList ())
-                           .setEntryPoints (Lists.<ModuleIdentifier> newArrayList ());
+                           .setOutputManifest (Lists.<String> newArrayList ());
   }
 
   public boolean compressJSFile (@Nonnull final File aSourceFile,

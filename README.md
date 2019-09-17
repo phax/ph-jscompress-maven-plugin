@@ -5,7 +5,7 @@ A Maven plugin to compress JS files at build time using Google Closure.
 # News and noteworthy
 
 * v2.2.3 - work in progress
-    * Updated to Google Closure v20190819
+    * Updated to Google Closure v20190909
 * v2.2.2 - 2019-07-15
     * Updated to Google Closure v20190709
 * v2.2.1 - 2018-08-06

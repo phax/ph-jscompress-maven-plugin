@@ -87,13 +87,18 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>v20191027</version>
+      <version>v20191111</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>
           <artifactId>ant</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.10.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

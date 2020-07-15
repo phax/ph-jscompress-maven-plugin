@@ -36,10 +36,7 @@ import com.google.javascript.jscomp.ClosureRunner;
 public final class JSCompressMojo extends AbstractMojo
 {
   private static final String EXTENSION_JS = ".js";
-  private static final String [] EXTENSIONS_JS_COMPRESSED = new String [] { ".min.js",
-                                                                           "-min.js",
-                                                                           ".minified.js",
-                                                                           "-minified.js" };
+  private static final String [] EXTENSIONS_JS_COMPRESSED = new String [] { ".min.js", "-min.js", ".minified.js", "-minified.js" };
 
   /**
    * The Maven Project.
@@ -176,9 +173,7 @@ public final class JSCompressMojo extends AbstractMojo
             _scanDirectory (aChild, aRunner);
         }
         else
-          if (aChild.isFile () &&
-              aChild.getName ().endsWith (EXTENSION_JS) &&
-              !_isAlreadyCompressed (aChild.getName ()))
+          if (aChild.isFile () && aChild.getName ().endsWith (EXTENSION_JS) && !_isAlreadyCompressed (aChild.getName ()))
           {
             // We're ready to rumble!
             _compressJSFile (aChild, aRunner);

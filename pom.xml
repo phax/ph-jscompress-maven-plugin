@@ -87,7 +87,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>v20200628</version>
+      <version>v20200719</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>
@@ -98,7 +98,7 @@
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
-      <version>3.12.2</version>
+      <version>3.13.0</version>
     </dependency>
     
     <dependency>

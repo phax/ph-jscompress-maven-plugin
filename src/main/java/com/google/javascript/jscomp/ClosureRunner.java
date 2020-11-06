@@ -26,12 +26,14 @@ import javax.annotation.Nonnull;
 
 import org.apache.maven.plugin.logging.Log;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.javascript.jscomp.CompilerOptions.JsonStreamMode;
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
 import com.google.javascript.jscomp.deps.ClosureBundler;
 import com.google.javascript.jscomp.deps.ModuleLoader;
+import com.google.javascript.jscomp.jarjar.com.google.common.collect.ImmutableList;
+import com.google.javascript.jscomp.jarjar.com.google.common.collect.ImmutableMap;
+import com.google.javascript.jscomp.parsing.parser.FeatureSet;
 import com.google.javascript.jscomp.parsing.parser.FeatureSet.Feature;
 import com.google.javascript.jscomp.transpile.BaseTranspiler;
 import com.google.javascript.jscomp.transpile.BaseTranspiler.CompilerSupplier;
@@ -178,12 +180,14 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     {
       final ImmutableList <String> moduleRoots = ImmutableList.of (ModuleLoader.DEFAULT_FILENAME_PREFIX);
       final CompilerOptions options = createOptions ();
+      final FeatureSet outputFeatureSet = LanguageMode.ECMASCRIPT_NEXT.toFeatureSet ().without (Feature.MODULES);
+      final ModuleLoader.ResolutionMode moduleResolution = options.getModuleResolutionMode ();
+      final ImmutableMap <String, String> prefixReplacements = options.getBrowserResolverPrefixReplacements ();
       m_aBundler = new ClosureBundler (Transpiler.NULL,
-                                       new BaseTranspiler (new CompilerSupplier (LanguageMode.ECMASCRIPT_NEXT.toFeatureSet ()
-                                                                                                             .without (Feature.MODULES),
-                                                                                 options.getModuleResolutionMode (),
+                                       new BaseTranspiler (new CompilerSupplier (outputFeatureSet,
+                                                                                 moduleResolution,
                                                                                  moduleRoots,
-                                                                                 options.getBrowserResolverPrefixReplacements ()),
+                                                                                 prefixReplacements),
                                                            /*
                                                             * runtimeLibraryName=
                                                             */ ""));
@@ -201,5 +205,11 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   protected void appendRuntimeTo (final Appendable out) throws IOException
   {
     _getBundler ().appendRuntimeTo (out);
+  }
+
+  @Override
+  protected String getVersionText ()
+  {
+    return "ph-jscompress-maven-plugin based on Google Closure Compiler";
   }
 }

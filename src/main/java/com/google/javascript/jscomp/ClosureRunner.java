@@ -116,7 +116,6 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   {
     getCommandLineConfig ().setPrintTree (false)
                            .setPrintAst (false)
-                           .setPrintPassGraph (false)
                            .setJscompDevMode (CompilerOptions.DevMode.OFF)
                            .setLoggingLevel (Level.WARNING.getName ())
                            .setExterns (Lists.<String> newArrayList ())
@@ -128,7 +127,8 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setVariableMapOutputFile ("")
                            .setCreateNameMapFiles (false)
                            .setPropertyMapOutputFile ("")
-                           .setCodingConvention (true ? CodingConventions.getDefault () : new ClosureCodingConvention ())
+                           .setCodingConvention (true ? CodingConventions.getDefault ()
+                                                      : new ClosureCodingConvention ())
                            .setSummaryDetailLevel (1)
                            .setOutputWrapper ("")
                            .setModuleWrapper (Lists.<String> newArrayList ())
@@ -139,7 +139,9 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setOutputManifest (Lists.<String> newArrayList ());
   }
 
-  public boolean compressJSFile (@Nonnull final File aSourceFile, @Nonnull final File aDestFile, @Nonnull final File [] aExterns)
+  public boolean compressJSFile (@Nonnull final File aSourceFile,
+                                 @Nonnull final File aDestFile,
+                                 @Nonnull final File [] aExterns)
   {
     if (aSourceFile == null)
       throw new NullPointerException ("sourceFile");
@@ -158,7 +160,9 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
       // Since v20160315 setJs has no effect
       final List <FlagEntry <JsSourceType>> aSources = new ArrayList <> ();
       aSources.add (new FlagEntry <> (JsSourceType.JS, aSourceFile.getAbsolutePath ()));
-      getCommandLineConfig ().setExterns (aExternList).setMixedJsSources (aSources).setJsOutputFile (aDestFile.getAbsolutePath ());
+      getCommandLineConfig ().setExterns (aExternList)
+                             .setMixedJsSources (aSources)
+                             .setJsOutputFile (aDestFile.getAbsolutePath ());
 
       final int nErrors = doRun ();
       if (nErrors == 0)
@@ -196,7 +200,9 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   }
 
   @Override
-  protected void prepForBundleAndAppendTo (final Appendable aOut, final CompilerInput aInput, final String aContent) throws IOException
+  protected void prepForBundleAndAppendTo (final Appendable aOut,
+                                           final CompilerInput aInput,
+                                           final String aContent) throws IOException
   {
     _getBundler ().withPath (aInput.getName ()).appendTo (aOut, aInput, aContent);
   }

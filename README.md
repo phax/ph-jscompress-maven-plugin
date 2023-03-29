@@ -26,6 +26,9 @@ A Maven plugin to compress JS files at build time using Google Closure.
 
 # News and noteworthy
 
+* v3.0.1 - 2023-03-29
+    * Fixed a runtime error, if Guava was not in the classpath
+    * Updated to Google Closure v20230228 
 * v3.0.0 - 2023-01-09
     * Using Java 11 as the baseline
     * Updated to Google Closure v20230103

@@ -19,6 +19,7 @@ package com.google.javascript.jscomp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -26,7 +27,6 @@ import javax.annotation.Nonnull;
 
 import org.apache.maven.plugin.logging.Log;
 
-import com.google.common.collect.Lists;
 import com.google.javascript.jscomp.CompilerOptions.JsonStreamMode;
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
 import com.google.javascript.jscomp.deps.ClosureBundler;
@@ -118,10 +118,10 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setPrintAst (false)
                            .setJscompDevMode (CompilerOptions.DevMode.OFF)
                            .setLoggingLevel (Level.WARNING.getName ())
-                           .setExterns (Lists.<String> newArrayList ())
+                           .setExterns (Collections.emptyList ())
                            .setJsOutputFile ("")
                            .setJsonStreamMode (JsonStreamMode.NONE)
-                           .setModule (Lists.<String> newArrayList ())
+                           .setModule (Collections.emptyList ())
                            .setVariableMapInputFile ("")
                            .setPropertyMapInputFile ("")
                            .setVariableMapOutputFile ("")
@@ -131,12 +131,12 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                                                       : new ClosureCodingConvention ())
                            .setSummaryDetailLevel (1)
                            .setOutputWrapper ("")
-                           .setModuleWrapper (Lists.<String> newArrayList ())
+                           .setModuleWrapper (Collections.emptyList ())
                            .setModuleOutputPathPrefix ("./")
                            .setCreateSourceMap ("")
-                           .setDefine (Lists.<String> newArrayList ())
+                           .setDefine (Collections.emptyList ())
                            .setCharset (m_sCharset)
-                           .setOutputManifest (Lists.<String> newArrayList ());
+                           .setOutputManifest (Collections.emptyList ());
   }
 
   public boolean compressJSFile (@Nonnull final File aSourceFile,

@@ -63,7 +63,7 @@
   </developers>
   
   <prerequisites>
-    <maven>3.2</maven>
+    <maven>3.3.3</maven>
   </prerequisites>
  
   <properties>
@@ -71,25 +71,13 @@
   </properties>
   
   <dependencies>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-      <version>${maven.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-core</artifactId>
-      <version>${maven.version}</version>
-      <scope>provided</scope>
-    </dependency>
     <!-- v20140407 and on is targeting JDK 1.7 -->
     <!-- v20160822 and on is targeting JDK 1.8 -->
     <!-- v20220601 and on is targeting JDK 11 -->
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>v20230206</version>
+      <version>v20230228</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>
@@ -106,6 +94,19 @@
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
       <version>3.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>${maven.version}</version>
+      <scope>provided</scope>
     </dependency>
     
     <dependency>

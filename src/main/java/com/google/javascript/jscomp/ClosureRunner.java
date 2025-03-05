@@ -40,18 +40,20 @@ import com.google.javascript.jscomp.transpile.BaseTranspiler.CompilerSupplier;
 import com.google.javascript.jscomp.transpile.Transpiler;
 
 /**
- * The main class running the Closure compiler. It must reside in this package,
- * as AbstractCommandLineRunner has only package visibility.
+ * The main class running the Closure compiler. It must reside in this package, as
+ * AbstractCommandLineRunner has only package visibility.
  *
  * @author Philip Helger
  */
 public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, CompilerOptions>
 {
+  private static final boolean DEBUG = false;
+  private static final boolean GENERATE_EXPORTS = false;
+
   private final Log m_aLog;
   private final String m_sCharset;
 
-  private static final boolean DEBUG = false;
-  private static final boolean GENERATE_EXPORTS = false;
+  private ClosureBundler m_aBundler;
 
   public ClosureRunner (@Nonnull final Log aLog, @Nonnull final String sCharset)
   {
@@ -89,7 +91,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   protected CompilerOptions createOptions ()
   {
     // TODO make language configurable
-    final LanguageMode eJSLanguage = LanguageMode.ECMASCRIPT5;
+    final LanguageMode eJSLanguage = LanguageMode.ECMASCRIPT_2021;
 
     final CompilerOptions options = new CompilerOptions ();
     options.setCodingConvention (new ClosureCodingConvention ());
@@ -176,10 +178,10 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     return false;
   }
 
-  private ClosureBundler m_aBundler;
-
+  @Nonnull
   private ClosureBundler _getBundler ()
   {
+    // Lazy init
     if (m_aBundler == null)
     {
       final ImmutableList <String> moduleRoots = ImmutableList.of (ModuleLoader.DEFAULT_FILENAME_PREFIX);
@@ -191,18 +193,16 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                                        new BaseTranspiler (new CompilerSupplier (outputFeatureSet,
                                                                                  moduleResolution,
                                                                                  moduleRoots,
-                                                                                 prefixReplacements),
-                                                           /*
-                                                            * runtimeLibraryName=
-                                                            */ ""));
+                                                                                 prefixReplacements), /*
+                                                                                                       * runtimeLibraryName=
+                                                                                                       */ ""));
     }
     return m_aBundler;
   }
 
   @Override
-  protected void prepForBundleAndAppendTo (final Appendable aOut,
-                                           final CompilerInput aInput,
-                                           final String aContent) throws IOException
+  protected void prepForBundleAndAppendTo (final Appendable aOut, final CompilerInput aInput, final String aContent)
+                                                                                                                     throws IOException
   {
     _getBundler ().withPath (aInput.getName ()).appendTo (aOut, aInput, aContent);
   }

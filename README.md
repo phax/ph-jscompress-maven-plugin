@@ -8,7 +8,7 @@ A Maven plugin to compress JS files at build time using Google Closure.
   <plugin>
     <groupId>com.helger.maven</groupId>
     <artifactId>ph-jscompress-maven-plugin</artifactId>
-    <version>2.2.3</version>
+    <version>3.0.1</version>
     <executions>
       <execution>
         <goals>
@@ -26,6 +26,8 @@ A Maven plugin to compress JS files at build time using Google Closure.
 
 # News and noteworthy
 
+* v3.0.2 - 2025-03-05
+    * Using the ECMA language version 2021 instead of ECMA Script v5
 * v3.0.1 - 2023-03-29
     * Fixed a runtime error, if Guava was not in the classpath
     * Updated to Google Closure v20230228 

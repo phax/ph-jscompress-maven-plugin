@@ -74,10 +74,11 @@
     <!-- v20140407 and on is targeting JDK 1.7 -->
     <!-- v20160822 and on is targeting JDK 1.8 -->
     <!-- v20220601 and on is targeting JDK 11 -->
+    <!-- v20250402 and on is targeting JDK 21 -->
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>v20250407</version>
+      <version>v20240317</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.ant</groupId>

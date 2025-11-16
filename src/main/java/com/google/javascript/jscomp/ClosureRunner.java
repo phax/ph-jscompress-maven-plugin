@@ -23,9 +23,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
-import javax.annotation.Nonnull;
-
 import org.apache.maven.plugin.logging.Log;
+import org.jspecify.annotations.NonNull;
 
 import com.google.javascript.jscomp.CompilerOptions.JsonStreamMode;
 import com.google.javascript.jscomp.CompilerOptions.LanguageMode;
@@ -55,7 +54,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
 
   private ClosureBundler m_aBundler;
 
-  public ClosureRunner (@Nonnull final Log aLog, @Nonnull final String sCharset)
+  public ClosureRunner (@NonNull final Log aLog, @NonNull final String sCharset)
   {
     if (aLog == null)
       throw new NullPointerException ("log");
@@ -66,7 +65,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   }
 
   @Override
-  protected void addAllowlistWarningsGuard (@Nonnull final CompilerOptions aOptions, @Nonnull final File aWhitelistFile)
+  protected void addAllowlistWarningsGuard (@NonNull final CompilerOptions aOptions, @NonNull final File aWhitelistFile)
   {
     aOptions.addWarningsGuard (AllowlistWarningsGuard.fromFile (aWhitelistFile));
   }
@@ -141,9 +140,9 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
                            .setOutputManifest (Collections.emptyList ());
   }
 
-  public boolean compressJSFile (@Nonnull final File aSourceFile,
-                                 @Nonnull final File aDestFile,
-                                 @Nonnull final File [] aExterns)
+  public boolean compressJSFile (@NonNull final File aSourceFile,
+                                 @NonNull final File aDestFile,
+                                 @NonNull final File [] aExterns)
   {
     if (aSourceFile == null)
       throw new NullPointerException ("sourceFile");
@@ -178,7 +177,7 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
     return false;
   }
 
-  @Nonnull
+  @NonNull
   private ClosureBundler _getBundler ()
   {
     // Lazy init

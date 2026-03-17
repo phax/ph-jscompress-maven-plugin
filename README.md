@@ -1,5 +1,10 @@
 # ph-jscompress-maven-plugin
 
+<!-- ph-badge-start -->
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger.maven/ph-jscompress-maven-plugin/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger.maven/ph-jscompress-maven-plugin/)
+[![javadoc](https://javadoc.io/badge2/com.helger.maven/ph-jscompress-maven-plugin/javadoc.svg)](https://javadoc.io/doc/com.helger.maven/ph-jscompress-maven-plugin)
+<!-- ph-badge-end -->
+
 A Maven plugin to compress JS files at build time using Google Closure.
 
 # Maven configuration

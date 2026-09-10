@@ -200,8 +200,9 @@ public final class ClosureRunner extends AbstractCommandLineRunner <Compiler, Co
   }
 
   @Override
-  protected void prepForBundleAndAppendTo (final Appendable aOut, final CompilerInput aInput, final String aContent)
-                                                                                                                     throws IOException
+  protected void prepForBundleAndAppendTo (final Appendable aOut,
+                                           final CompilerInput aInput,
+                                           final String aContent) throws IOException
   {
     _getBundler ().withPath (aInput.getName ()).appendTo (aOut, aInput, aContent);
   }
